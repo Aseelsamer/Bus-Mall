@@ -1,0 +1,45 @@
+h1 {
+    background-color: lightseagreen;
+    color: azure;
+    display: inline;
+}
+nav  li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: navajowhite;
+    color: black;
+  }
+  
+  
+  body{
+    background-color: cornsilk;
+  }
+
+  h1{
+   font-family: 'Syne Mono', monospace;
+  }
+
+  #button{
+    border-radius: 12px;
+    padding: 14px 40px;
+    background-color: black;
+    color:navajowhite ;
+    font-size: xx-large;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+
+  #leftImage,#rightImage,#middleImage {
+    float: left;
+    width: 20%;
+    padding: 15px;
+  }
+  #imageSection{
+    content: "";
+    clear: both;
+    display: table;
+  }
