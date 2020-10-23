@@ -36,12 +36,27 @@ function Mall(mName, src) {
   this.clicks=0;
   Mall.all.push(this);
 }
-
+var randomArray=[];
 // var names =[];
 // for (var i=0;i<names.length;i++){
 //   new Mall(names[i]);
 // }
 console.log(Mall.all);
+
+function getrandomImages(min,max){
+  var rand1= randomNumber(min,max);
+  var rand2= randomNumber(min,max);
+  var rand3= randomNumber(min,max);
+
+  while(randomArray.includes(rand1)||randomArray.includes(rand2)||randomArray.includes(rand3)){
+    rand1 = randomNumber(min,max);
+    rand2=randomNumber(min,max);
+    rand3=randomNumber(min,max);
+  }
+  randomArray=[rand1,rand2,rand3];
+
+  return randomArray;
+}
 
 function randomNumber(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -68,7 +83,21 @@ new Mall ('usb', 'assets/usb.gif');
 new Mall ('water-can', 'assets/water-can.jpg');
 new Mall ('wine-glass', 'assets/wine-glass.jpg');
 
-var rounds=[];
+
+
+var stuff1;
+var stuff2;
+var stuff3;
+function renderImages(){
+  var randArray=getrandomImages(0,(Mall.length-1));
+  stuff1 = Mall[randArray[0]];
+  stuff2 = Mall[randArray[1]];
+  stuff3 = Mall[randArray[2]];
+  render();
+}
+renderImages();
+
+var rounds=[ ];
 var ifexisits;
 
 var leftMall , rightMall , middleMall;
@@ -78,6 +107,7 @@ function render (){
     leftMall = Mall.all[randomNumber(0,Mall.all.length - 1)];
     rightMall = Mall.all[randomNumber(0,Mall.all.length - 1)];
     middleMall = Mall.all[randomNumber(0,Mall.all.length - 1)];
+
     for (var i=0;i<rounds.length;i++){
       if (rounds[i]===leftMall || rounds[i]===rightMall || rounds[i]===middleMall){
         ifexisits=true;
@@ -138,14 +168,14 @@ function handleClickonMall (event) {
       if (event.target.id === 'middleImage'){
         middleMall.clicks++;
       }
-    
+      clickStore();
       render();
     }
     if(totalClick === 25) {
       // renderSummary();
       document.getElementById('button').addEventListener('click',renderSummary);
       console.log(totalClick);
-    
+      mallStorage();
     }
 
   }
@@ -163,6 +193,39 @@ function renderSummary() {
   }
 }
 
+
+function mallStorage(){
+  var orders=JSON.stringify(Mall.all);
+  localStorage.setItem('Mall' , orders);
+}
+function getMall(){
+  var food=localStorage.getItem('Mall');
+  var food2=JSON.parse(food);
+
+  if (food2){
+    Mall.all=food;
+  }
+}
+getMall();
+
+function clickStore() {
+  var clicksString = JSON.stringify(totalClick);
+  localStorage.setItem('Clicks',clicksString);
+}
+
+
+function numOfclc() {
+  var clicksString = localStorage.getItem('Clicks');
+  var data=JSON.parse(clicksString);
+
+  if (data) {
+    totalClick=data;
+  }
+}
+
+console.log(totalClick);
+
+numOfclc();
 
 var view=[];
 var numofClick=[];
